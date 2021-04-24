@@ -1,10 +1,12 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { CARD } from '../dummy-data';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { CARD, SMALL_CARD } from '../dummy-data';
+const { width, height } = Dimensions.get('window');
+
 const DetailPage = ({ route, navigation }) => {
 	const { id, lastPage } = route.params;
-	const data = CARD.filter((data) => id === data.id)[0];
+	const data = CARD.filter((data) => id === data.id)[0] || SMALL_CARD.filter((data) => id === data.id)[0];
 	const [viewImage, setViewImage] = useState(data.image);
 	return (
 		<View style={styles.container}>
@@ -41,7 +43,7 @@ const DetailPage = ({ route, navigation }) => {
 					</Text>
 					<View style={styles.galleryContainer}>
 						<TouchableOpacity
-							pressDuration={0.1}
+							pressDuration={0.0}
 							style={styles.gallery}
 							onPress={() => navigation.navigate('Gallery', { id: data.id, lastPage: 'Detail' })}
 						>
@@ -98,6 +100,7 @@ export default DetailPage;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		width: width,
 		flexDirection: 'column'
 	},
 	backBtn: {
@@ -110,7 +113,9 @@ const styles = StyleSheet.create({
 		zIndex: 10
 	},
 	bottomContainer: {
-		marginHorizontal: '5%'
+		paddingHorizontal: '5%',
+		flexDirection: 'column',
+		justifyContent: 'space-around'
 	},
 	image: {
 		height: '45%'
@@ -128,9 +133,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: '#e4d7d7',
 		width: '35%',
-		paddingVertical: 8,
+		paddingVertical: 12,
 		borderRadius: 5
-		// paddingHorizontal: 7
 	},
 	title: {
 		fontWeight: 'bold',
@@ -138,7 +142,6 @@ const styles = StyleSheet.create({
 	},
 	subTitle: {
 		fontSize: 16,
-		marginTop: 3,
 		fontWeight: '300',
 		color: '#9c8686'
 	},
@@ -146,7 +149,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row'
 	},
 	detailData: {
-		marginTop: '2%',
 		paddingHorizontal: '2%'
 	},
 	detailText: {

@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+const { width, height } = Dimensions.get('window');
 const Input = () => {
 	return (
 		<View style={styles.container}>
@@ -21,16 +22,16 @@ export default Input;
 
 const styles = StyleSheet.create({
 	container: {
+		width: width,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 		alignItems: 'center',
-		marginHorizontal: '8%',
 		marginTop: 20
 	},
 
 	search: {
 		alignItems: 'center',
-		width: '85%',
+		width: '80%',
 		backgroundColor: '#FFFFFF',
 		padding: 10,
 		borderRadius: 10,

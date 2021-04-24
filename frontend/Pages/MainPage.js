@@ -1,16 +1,17 @@
 import React from 'react';
-import { FlatList, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Dimensions, FlatList, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import SmallCard from '../components/SmallCard';
 import { CARD, SMALL_CARD } from '../dummy-data';
+const { width, height } = Dimensions.get('window');
 const Main = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<View style={styles.inner}>
-					<Header />
+					<Header navigation={navigation} />
 					<Input />
 				</View>
 			</TouchableWithoutFeedback>
@@ -41,10 +42,12 @@ export default Main;
 
 const styles = StyleSheet.create({
 	container: {
+		width: width,
+		height: height,
 		flex: 1
 	},
 	card: {
-		marginHorizontal: '2%'
+		paddingHorizontal: '2%'
 	},
 	smallCard: {
 		flex: 1,

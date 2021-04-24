@@ -4,9 +4,10 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import DetailPage from './Pages/DetailPage';
-import GallertPage from './Pages/GallertPage';
+import GalleryPage from './Pages/GalleryPage';
 import LoginPage from './Pages/LoginPage';
 import MainPage from './Pages/MainPage';
+import ProfilePage from './Pages/ProfilePage';
 import RegisterPage from './Pages/RegisterPage';
 const Stack = createStackNavigator();
 const { width, height } = Dimensions.get('window');
@@ -24,9 +25,10 @@ export default function App() {
 				>
 					<Stack.Screen name="Home" component={MainPage} />
 					<Stack.Screen name="Detail" component={DetailPage} />
-					<Stack.Screen name="Gallery" component={GallertPage} />
+					<Stack.Screen name="Gallery" component={GalleryPage} />
 					<Stack.Screen name="Login" component={LoginPage} />
 					<Stack.Screen name="Register" component={RegisterPage} />
+					<Stack.Screen name="Profile" component={ProfilePage} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</View>

@@ -17,31 +17,35 @@ const LoginPage = ({ navigation }) => {
 					</TouchableWithoutFeedback>
 				</Text>
 			</View>
-			<View style={styles.form}>
-				<View style={{ ...styles.search, backgroundColor: '#fdcf84' }}>
-					<TextInput placeholder="Enter Email Address" style={{ width: '100%' }} />
-					<Entypo name="email" size={22} color="#473333" style={{ marginLeft: '-10%' }} />
+			<View style={{ flexDirection: 'column', justifyContent: 'space-around', height: '55%' }}>
+				<View style={styles.form}>
+					<View style={{ ...styles.search, backgroundColor: '#fdcf84' }}>
+						<TextInput placeholder="Enter Email Address" style={{ width: '100%' }} />
+						<Entypo name="email" size={22} color="#473333" style={{ marginLeft: '-10%' }} />
+					</View>
+					<View style={{ ...styles.search, backgroundColor: '#e6e0e0' }}>
+						<TextInput secureTextEntry={true} placeholder="Enter Password" style={{ width: '100%' }} />
+						<MaterialCommunityIcons
+							name="shield-key-outline"
+							size={25}
+							color="#473333"
+							style={{ marginLeft: '-10%' }}
+						/>
+					</View>
+					<Text style={{ ...styles.titleOptional, marginTop: '3%' }}>
+						Forgot Password/ <Text style={{ color: '#000', fontWeight: '400', fontSize: 17 }}> Reset</Text>
+					</Text>
 				</View>
-				<View style={{ ...styles.search, backgroundColor: '#e6e0e0' }}>
-					<TextInput secureTextEntry={true} placeholder="Enter Password" style={{ width: '100%' }} />
-					<MaterialCommunityIcons
-						name="shield-key-outline"
-						size={25}
-						color="#473333"
-						style={{ marginLeft: '-10%' }}
-					/>
+				<View style={styles.btnContainer}>
+					<View style={styles.btn}>
+						<Text style={{ color: '#fff', fontWeight: '400', fontSize: 15 }}>Login</Text>
+					</View>
+					<TouchableWithoutFeedback pressDuration={0.0} onPress={() => navigation.navigate('Home')}>
+						<Text style={{ color: '#887575', fontWeight: '400', fontSize: 15, marginTop: '5%' }}>
+							Skip Now
+						</Text>
+					</TouchableWithoutFeedback>
 				</View>
-				<Text style={{ ...styles.titleOptional, marginTop: '3%' }}>
-					Forgot Password/ <Text style={{ color: '#000', fontWeight: '400', fontSize: 17 }}> Reset</Text>
-				</Text>
-			</View>
-			<View style={styles.btnContainer}>
-				<View style={styles.btn}>
-					<Text style={{ color: '#fff', fontWeight: '400', fontSize: 15 }}>Login</Text>
-				</View>
-				<TouchableWithoutFeedback pressDuration={0.0} onPress={() => navigation.navigate('Home')}>
-					<Text style={{ color: '#887575', fontWeight: '400', fontSize: 15, marginTop: '5%' }}>Skip Now</Text>
-				</TouchableWithoutFeedback>
 			</View>
 		</View>
 	);
@@ -52,6 +56,7 @@ export default LoginPage;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		height: height,
 		width: width,
 		height: height,
 		marginHorizontal: '10%',
@@ -97,8 +102,8 @@ const styles = StyleSheet.create({
 		marginRight: '20%',
 		flexDirection: 'column',
 		justifyContent: 'center',
-		alignItems: 'center',
-		marginTop: '10%'
+		alignItems: 'center'
+		// marginTop: '10%'
 	},
 	btn: {
 		width: '100%',
