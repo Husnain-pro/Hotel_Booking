@@ -2,6 +2,7 @@ import { Fontisto, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 const Card = ({ data, navigation }) => {
+	console.log('card data', data.item);
 	return (
 		<View style={styles.container}>
 			<View style={styles.card}>
@@ -17,8 +18,8 @@ const Card = ({ data, navigation }) => {
 				</TouchableWithoutFeedback>
 				<View style={styles.cardContent}>
 					<View>
-						<Text style={styles.title}>{data.title}</Text>
-						<Text style={styles.subTitle}>{data.subTitle}</Text>
+						<Text style={styles.title}>{data.name}</Text>
+						<Text style={styles.subTitle}>{data.location}</Text>
 					</View>
 					<View style={styles.stars}>
 						<MaterialIcons name="star" size={17} color="orange" />

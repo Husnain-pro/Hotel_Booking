@@ -1,12 +1,26 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import SmallCard from '../components/SmallCard';
-import { CARD, SMALL_CARD } from '../dummy-data';
+import { SMALL_CARD } from '../dummy-data';
 const { width, height } = Dimensions.get('window');
 const Main = ({ navigation }) => {
+	const [card, setCard] = useState('');
+	useEffect(() => {
+		const sendGetRequest = async () => {
+			try {
+				const { data } = await axios.get('http://127.0.0.1:3000/api/hotels');
+				setCard(data);
+				console.log(data);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		sendGetRequest();
+	}, []);
 	return (
 		<View style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -15,15 +29,18 @@ const Main = ({ navigation }) => {
 					<Input />
 				</View>
 			</TouchableWithoutFeedback>
-			<View style={styles.card}>
-				<FlatList
-					data={CARD}
-					renderItem={({ item }) => <Card navigation={navigation} data={item} />}
-					keyExtractor={(item) => item.id}
-					horizontal={true}
-					showsHorizontalScrollIndicator={false}
-				/>
-			</View>
+			{card && (
+				<View style={styles.card}>
+					<FlatList
+						data={card.data}
+						renderItem={({ item }) => <Card navigation={navigation} data={item} />}
+						keyExtractor={(item) => item.id}
+						horizontal={true}
+						showsHorizontalScrollIndicator={false}
+					/>
+				</View>
+			)}
+
 			<View style={styles.smallCard}>
 				<Text style={styles.smallCardTitle}>Popular House</Text>
 				<FlatList

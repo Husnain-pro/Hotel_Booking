@@ -7,6 +7,8 @@ const { width, height } = Dimensions.get('window');
 const DetailPage = ({ route, navigation }) => {
 	const { id, lastPage } = route.params;
 	const data = CARD.filter((data) => id === data.id)[0] || SMALL_CARD.filter((data) => id === data.id)[0];
+	console.log(data);
+	console.log('detail page');
 	const [viewImage, setViewImage] = useState(data.image);
 	return (
 		<View style={styles.container}>

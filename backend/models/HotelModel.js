@@ -13,6 +13,7 @@ const hotelSchema = mongoose.Schema(
 		},
 		location: { type: String, required: [true, 'A hotel must have location'] },
 		price: { type: Number, required: [true, 'A hotel must have price'] },
+		bathroom: { type: Number, required: [true, 'A hotel must have bathrooms'] },
 		image: { type: String, required: [true, 'A hotel must have image'] },
 		detailImage: [
 			{
