@@ -1,37 +1,22 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, FlatList, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { listRooms } from '../actions/hotelAction';
+import { Dimensions, FlatList, Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import Input from '../components/Input';
-import SmallCard from '../components/SmallCard';
-import { SMALL_CARD } from '../dummy-data';
-
 const { width, height } = Dimensions.get('window');
 
 const Main = ({ navigation }) => {
-	const [card, setCard] = useState('');
-	const dispatch = useDispatch();
-	const hotelList = useSelector((state) => state.hotelList);
-
-	console.log('hotelList from Redux', hotelList);
-
+	const [CARD, setData] = useState([]);
 	useEffect(() => {
-		const sendGetRequest = async () => {
-			try {
-				const { data } = await axios.get('http://127.0.0.1:3000/api/hotels');
-				setCard(data);
-			} catch (err) {
-				console.error(err);
-			}
+		const roomsList = async () => {
+			const {
+				data: { data }
+			} = await axios.get('http://192.168.43.28:3000/api/hotels');
+			setData(data);
 		};
-		sendGetRequest();
+		roomsList();
 	}, []);
-	useEffect(() => {
-		dispatch(listRooms);
-	}, [dispatch]);
 	return (
 		<View style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -40,28 +25,17 @@ const Main = ({ navigation }) => {
 					<Input />
 				</View>
 			</TouchableWithoutFeedback>
-			{card && (
+			{CARD && (
 				<View style={styles.card}>
 					<FlatList
-						data={card.data}
+						data={CARD}
 						renderItem={({ item }) => <Card navigation={navigation} data={item} />}
-						keyExtractor={(item) => item.id}
+						keyExtractor={(item) => item._id}
 						horizontal={true}
 						showsHorizontalScrollIndicator={false}
 					/>
 				</View>
 			)}
-
-			<View style={styles.smallCard}>
-				<Text style={styles.smallCardTitle}>Popular House</Text>
-				<FlatList
-					data={SMALL_CARD}
-					renderItem={({ item }) => <SmallCard navigation={navigation} data={item} />}
-					keyExtractor={(item) => item.id}
-					horizontal={false}
-					showsVerticalScrollIndicator={false}
-				/>
-			</View>
 		</View>
 	);
 };

@@ -17,7 +17,7 @@ export const CARD = [
 		price: 23,
 		bathroom: 3,
 		image:
-			'https://images.unsplash.com/photo-1574197634772-f0de0d41a02e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHJvb218ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+			'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80',
 		updatedAt: '2021-04-25T16:34:36.019Z',
 		__v: 1
 	},

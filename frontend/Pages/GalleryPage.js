@@ -1,11 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { CARD, SMALL_CARD } from '../dummy-data';
+import { CARD } from '../dummy-data';
 
 const GallertPage = ({ route, navigation }) => {
 	const { id, lastPage } = route.params;
-	const data = CARD.filter((data) => id === data.id)[0] || SMALL_CARD.filter((data) => id === data.id)[0];
+	const data = CARD.filter((data) => id === data.id)[0];
 	const [viewImage, setViewImage] = useState(data.gallery[0]);
 	return (
 		<View style={styles.container}>

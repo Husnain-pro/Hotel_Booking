@@ -1,98 +1,102 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { CARD, SMALL_CARD } from '../dummy-data';
 const { width } = Dimensions.get('window');
 
 const DetailPage = ({ route, navigation }) => {
 	const { id, lastPage } = route.params;
-	const data = CARD.filter((data) => id === data._id)[0] || SMALL_CARD.filter((data) => id === data.id)[0];
-	const [viewImage, setViewImage] = useState(data.image);
-	console.log('detail data = ', data);
+	const [data, setData] = useState();
+	const [viewImage, setViewImage] = useState();
+	useEffect(() => {
+		const roomDetail = async () => {
+			const {
+				data: { data }
+			} = await axios.get(`http://192.168.43.28:3000/api/hotels/${id}`);
+			setData(data);
+			setViewImage(data.image);
+		};
+		roomDetail();
+	}, [route]);
 	return (
-		<View style={styles.container}>
-			<View style={styles.backBtn}>
-				<TouchableOpacity pressDuration={0.1} onPress={() => navigation.navigate(lastPage)}>
-					<Ionicons name="chevron-back" size={24} color="black" />
-				</TouchableOpacity>
-			</View>
-			<View style={styles.image}>
-				<Image
-					style={{ width: '100%', height: '100%' }}
-					source={{
-						uri: viewImage
-					}}
-				/>
-			</View>
-			<View style={styles.bottomContainer}>
-				<View style={styles.detailContent}>
-					<View>
-						<Text style={styles.title}>Humayun House</Text>
-						<Text style={styles.subTitle}>Lahore Pakistan</Text>
+		<>
+			{data && (
+				<View style={styles.container}>
+					<View style={styles.backBtn}>
+						<TouchableOpacity pressDuration={0.1} onPress={() => navigation.navigate(lastPage)}>
+							<Ionicons name="chevron-back" size={24} color="black" />
+						</TouchableOpacity>
 					</View>
-					<View style={styles.stars}>
-						<MaterialIcons name="star" size={20} color="orange" />
-						<MaterialIcons name="star" size={20} color="orange" />
-						<MaterialIcons name="star" size={20} color="orange" />
-						<MaterialIcons name="star-half" size={20} color="orange" />
-						<MaterialIcons name="star-outline" size={20} color="orange" />
+					<View style={styles.image}>
+						<Image
+							style={{ width: '100%', height: '100%' }}
+							source={{
+								uri: viewImage
+							}}
+						/>
 					</View>
-				</View>
-				<View style={styles.detailData}>
-					<Text style={styles.detailText}>
-						This House is very modern house which is close to the station and center of business.
-					</Text>
-					<View style={styles.galleryContainer}>
-						<TouchableOpacity
-							pressDuration={0.0}
-							style={styles.gallery}
-							onPress={() => navigation.navigate('Gallery', { id: data.id, lastPage: 'Detail' })}
-						>
+					<View style={styles.bottomContainer}>
+						<View style={styles.detailContent}>
 							<View>
-								<Text>View Gallery</Text>
+								<Text style={styles.title}>Humayun House</Text>
+								<Text style={styles.subTitle}>Lahore Pakistan</Text>
 							</View>
-						</TouchableOpacity>
-					</View>
-				</View>
-				<View style={styles.facilities}>
-					<Text style={styles.facilityTitle}>Facilities</Text>
-					<View style={styles.facilityCard}>
-						<TouchableOpacity pressDuration={0.1} onPress={() => setViewImage(data.image)}>
-							<View style={styles.cardImage}>
-								<Image style={{ width: '100%', height: '100%' }} source={{ uri: data.image }} />
+							<View style={styles.stars}>
+								<MaterialIcons name="star" size={20} color="orange" />
+								<MaterialIcons name="star" size={20} color="orange" />
+								<MaterialIcons name="star" size={20} color="orange" />
+								<MaterialIcons name="star-half" size={20} color="orange" />
+								<MaterialIcons name="star-outline" size={20} color="orange" />
 							</View>
-						</TouchableOpacity>
-						<TouchableOpacity pressDuration={0.1} onPress={() => setViewImage(data.detailImage[0])}>
-							<View style={styles.cardImage}>
-								<Image
-									style={{ width: '100%', height: '100%' }}
-									source={{ uri: data.detailImage[0] }}
-								/>
-							</View>
-						</TouchableOpacity>
-						<TouchableOpacity pressDuration={0.1} onPress={() => setViewImage(data.detailImage[1])}>
-							<View style={styles.cardImage}>
-								<Image
-									style={{ width: '100%', height: '100%' }}
-									source={{ uri: data.detailImage[1] }}
-								/>
-							</View>
-						</TouchableOpacity>
-					</View>
-				</View>
-				<View style={styles.order}>
-					<View style={styles.orderValue}>
-						<Text style={styles.price}>Price</Text>
-						<Text style={styles.priceValue}>$750</Text>
-					</View>
-					<TouchableOpacity pressDuration={0.1} onPress={() => navigation.navigate('Login')}>
-						<View style={styles.orderBtn}>
-							<Text style={styles.btnText}>Book Now</Text>
 						</View>
-					</TouchableOpacity>
+						<View style={styles.detailData}>
+							<Text style={styles.detailText}>
+								This House is very modern house which is close to the station and center of business.
+							</Text>
+							<View style={styles.galleryContainer}>
+								<TouchableOpacity
+									pressDuration={0.0}
+									style={styles.gallery}
+									onPress={() => navigation.navigate('Gallery', { id: data.id, lastPage: 'Detail' })}
+								>
+									<View>
+										<Text>View Gallery</Text>
+									</View>
+								</TouchableOpacity>
+							</View>
+						</View>
+						<View style={styles.facilities}>
+							<Text style={styles.facilityTitle}>Facilities</Text>
+							<View style={styles.facilityCard}>
+								<TouchableOpacity pressDuration={0.1} onPress={() => setViewImage(data.image)}>
+									<View style={styles.cardImage}>
+										<Image style={{ width: '100%', height: '100%' }} source={{ uri: data.image }} />
+									</View>
+								</TouchableOpacity>
+								{data?.detailImage.map((imgSrc, id) => (
+									<TouchableOpacity key={id} pressDuration={0.1} onPress={() => setViewImage(imgSrc)}>
+										<View style={styles.cardImage}>
+											<Image style={{ width: '100%', height: '100%' }} source={{ uri: imgSrc }} />
+										</View>
+									</TouchableOpacity>
+								))}
+							</View>
+						</View>
+						<View style={styles.order}>
+							<View style={styles.orderValue}>
+								<Text style={styles.price}>Price</Text>
+								<Text style={styles.priceValue}>$750</Text>
+							</View>
+							<TouchableOpacity pressDuration={0.1} onPress={() => navigation.navigate('Login')}>
+								<View style={styles.orderBtn}>
+									<Text style={styles.btnText}>Book Now</Text>
+								</View>
+							</TouchableOpacity>
+						</View>
+					</View>
 				</View>
-			</View>
-		</View>
+			)}
+		</>
 	);
 };
 

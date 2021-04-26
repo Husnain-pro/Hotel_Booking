@@ -2,8 +2,7 @@ import { Fontisto, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 const Card = ({ data, navigation }) => {
-	data && console.log('card data', data.id);
-	console.log('data.id', data.image);
+	// console.log('data.id', data.image);
 
 	return (
 		<View style={styles.container}>
@@ -11,17 +10,19 @@ const Card = ({ data, navigation }) => {
 				<TouchableWithoutFeedback
 					onPress={() => navigation.navigate('Detail', { id: data._id, lastPage: 'Home' })}
 				>
-					<Image
-						style={{ width: '100%', height: 200 }}
-						source={{
-							uri: data.image
-						}}
-					/>
+					{data && (
+						<Image
+							style={{ width: '100%', height: 200 }}
+							source={{
+								uri: data.image
+							}}
+						/>
+					)}
 				</TouchableWithoutFeedback>
 				<View style={styles.cardContent}>
 					<View>
-						<Text style={styles.title}>{data.name}</Text>
-						<Text style={styles.subTitle}>{data.location}</Text>
+						{data && <Text style={styles.title}>{data.name}</Text>}
+						{data && <Text style={styles.subTitle}>{data.location}</Text>}
 					</View>
 					<View style={styles.stars}>
 						<MaterialIcons name="star" size={17} color="orange" />
@@ -42,7 +43,7 @@ const Card = ({ data, navigation }) => {
 						<View style={styles.btnIcon}>
 							<Ionicons name="ios-bed-outline" size={18} color="#fa6f7b" />
 						</View>
-						<Text>{data.bedroom}:Bedroom</Text>
+						{data && <Text>{data.bedroom}:Bedroom</Text>}
 					</View>
 				</View>
 			</View>
