@@ -2,14 +2,13 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CARD, SMALL_CARD } from '../dummy-data';
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const DetailPage = ({ route, navigation }) => {
 	const { id, lastPage } = route.params;
-	const data = CARD.filter((data) => id === data.id)[0] || SMALL_CARD.filter((data) => id === data.id)[0];
-	console.log(data);
-	console.log('detail page');
+	const data = CARD.filter((data) => id === data._id)[0] || SMALL_CARD.filter((data) => id === data.id)[0];
 	const [viewImage, setViewImage] = useState(data.image);
+	console.log('detail data = ', data);
 	return (
 		<View style={styles.container}>
 			<View style={styles.backBtn}>

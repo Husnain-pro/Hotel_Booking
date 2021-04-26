@@ -2,12 +2,14 @@ import { Fontisto, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 const Card = ({ data, navigation }) => {
-	console.log('card data', data.item);
+	data && console.log('card data', data.id);
+	console.log('data.id', data.image);
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.card}>
 				<TouchableWithoutFeedback
-					onPress={() => navigation.navigate('Detail', { id: data.id, lastPage: 'Home' })}
+					onPress={() => navigation.navigate('Detail', { id: data._id, lastPage: 'Home' })}
 				>
 					<Image
 						style={{ width: '100%', height: 200 }}
