@@ -57,7 +57,7 @@ const DetailPage = ({ route, navigation }) => {
 								<TouchableOpacity
 									pressDuration={0.0}
 									style={styles.gallery}
-									onPress={() => navigation.navigate('Gallery', { id: data.id, lastPage: 'Detail' })}
+									onPress={() => navigation.navigate('Gallery', { id: data._id, lastPage: 'Detail' })}
 								>
 									<View>
 										<Text>View Gallery</Text>

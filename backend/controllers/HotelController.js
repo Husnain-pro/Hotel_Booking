@@ -105,4 +105,19 @@ const createHotel = async (req, res) => {
 	}
 };
 
-export { createHotel, getAllhotels, getOneHotel, deleteHotel, updateHotel };
+const featureHotel = async (req, res) => {
+	try {
+		const hotels = await Hotel.find({ price: { $gt: 23 } }).select('name');
+		res.status(200).json({
+			status: 'success',
+			data: hotels
+		});
+	} catch (error) {
+		res.status(404).json({
+			status: 'error',
+			message: error.message
+		});
+	}
+};
+
+export { createHotel, getAllhotels, getOneHotel, deleteHotel, updateHotel, featureHotel };

@@ -1,12 +1,22 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { CARD } from '../dummy-data';
 
 const GallertPage = ({ route, navigation }) => {
 	const { id, lastPage } = route.params;
-	const data = CARD.filter((data) => id === data.id)[0];
-	const [viewImage, setViewImage] = useState(data.gallery[0]);
+	const [data, setData] = useState();
+	const [viewImage, setViewImage] = useState();
+	useEffect(() => {
+		const roomDetail = async () => {
+			const {
+				data: { data }
+			} = await axios.get(`http://192.168.43.28:3000/api/hotels/${id}`);
+			setData(data);
+			setViewImage(data.image);
+		};
+		roomDetail();
+	}, [route]);
 	return (
 		<View style={styles.container}>
 			<View style={styles.backBtn}>

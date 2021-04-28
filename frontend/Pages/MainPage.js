@@ -1,13 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { listRooms } from '../actions/hotelAction';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import Input from '../components/Input';
 const { width, height } = Dimensions.get('window');
-
 const Main = ({ navigation }) => {
 	const [CARD, setData] = useState([]);
+	// const dispatch = useDispatch();
+	// const hotelList = useSelector((state) => state.hotelList);
+	// console.log('dispatch', hotelList);
 	useEffect(() => {
 		const roomsList = async () => {
 			const {
@@ -16,6 +20,7 @@ const Main = ({ navigation }) => {
 			setData(data);
 		};
 		roomsList();
+		// dispatch(listRooms);
 	}, []);
 	return (
 		<View style={styles.container}>

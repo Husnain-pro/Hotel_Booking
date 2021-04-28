@@ -2,7 +2,7 @@ import axios from 'axios';
 import { HOTEL_ROOM_LIST_FAIL, HOTEL_ROOM_LIST_REQUEST, HOTEL_ROOM_LIST_SUCCESS } from '../constants/hotelConstant';
 
 export const listRooms = () => async (dispatch) => {
-	console.log('hello world');
+	console.log('hello world from action');
 	try {
 		dispatch({ type: HOTEL_ROOM_LIST_REQUEST });
 		const { data } = await axios.get('/api/hotels');
